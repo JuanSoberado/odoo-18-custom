@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Menú dentro de Ventas -->
+    <menuitem id="menu_juan_config_descuentos"
+              name="Configuración de Descuentos"
+              parent="sale.sale_menu_root"
+              action="action_config_global"
+              sequence="100"
+              groups="base.group_system"/>
+</odoo>

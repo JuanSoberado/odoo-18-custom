@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_juan_config_global_user,access_juan_config_global_user,model_juan_config_global,base.group_user,1,0,0,0
+access_juan_config_global_manager,access_juan_config_global_manager,model_juan_config_global,base.group_system,1,1,1,0

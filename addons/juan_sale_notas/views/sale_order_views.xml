@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form_inherit_notas" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.notas</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <!-- Añadir el campo de notas internas después de la fecha -->
+            <xpath expr="//field[@name='date_order']" position="after">
+                <field name="x_notas_internas" placeholder="Escribe aquí las notas internas..."/>
+            </xpath>
+
+            <!-- Añadir el total formateado en un notebook al final del formulario -->
+            <xpath expr="//notebook" position="inside">
+                <page string="Información Adicional">
+                    <group>
+                        <field name="x_total_formateado" readonly="1"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
