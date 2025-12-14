@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista de formulario del pedido de venta con campo personalizado -->
+    <record id="juan_view_order_form" model="ir.ui.view">
+        <field name="name">juan.sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <!-- Añadir el campo después del campo de cliente -->
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="juan_comentarios_adicionales" placeholder="Escribe comentarios adicionales aquí..."/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

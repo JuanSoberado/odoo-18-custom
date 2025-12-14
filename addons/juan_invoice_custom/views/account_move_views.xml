@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Mover campo banco destinatario a vista principal -->
+    <record id="juan_view_move_form_bank" model="ir.ui.view">
+        <field name="name">juan.account.move.form.bank</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <!-- Ocultar el campo de su posición original en otras pestañas -->
+            <xpath expr="//page[@name='other_info']//field[@name='partner_bank_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            
+            <!-- Añadir el campo en la vista principal debajo de partner_id -->
+            <xpath expr="//field[@name='partner_id'][1]" position="after">
+                <field name="partner_bank_id" 
+                       string="Banco Destinatario"
+                       context="{'default_partner_id': partner_id}"
+                       domain="[('partner_id', '=', partner_id)]"
+                       widget="many2one"
+                       options="{'no_create': True, 'no_open': True}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

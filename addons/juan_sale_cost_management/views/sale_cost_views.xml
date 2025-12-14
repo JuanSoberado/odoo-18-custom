@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Vista tree para materiales -->
+    <record id="view_sale_cost_material_tree" model="ir.ui.view">
+        <field name="name">sale.cost.material.tree</field>
+        <field name="model">sale.cost.material</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="product_id"/>
+                <field name="quantity"/>
+                <field name="uom_id"/>
+                <field name="price_unit"/>
+                <field name="subtotal" sum="Total"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vista tree para mano de obra -->
+    <record id="view_sale_cost_labor_tree" model="ir.ui.view">
+        <field name="name">sale.cost.labor.tree</field>
+        <field name="model">sale.cost.labor</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="hours" sum="Total Horas"/>
+                <field name="user_id"/>
+                <field name="project_task_id" readonly="1" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Formulario popup para gestión de costes -->
+    <record id="view_sale_order_line_cost_form" model="ir.ui.view">
+        <field name="name">sale.order.line.cost.form</field>
+        <field name="model">sale.order.line</field>
+        <field name="arch" type="xml">
+            <form string="Gestión de Costes">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="product_id" readonly="1"/>
+                            <field name="product_uom_qty" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="price_unit" readonly="1"/>
+                            <field name="price_subtotal" readonly="1"/>
+                        </group>
+                    </group>
+                    
+                    <notebook>
+                        <page string="📦 Materiales" name="materials">
+                            <field name="material_ids"/>
+                        </page>
+                        
+                        <page string="👷 Mano de Obra" name="labor">
+                            <field name="labor_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <!-- Acción para ver líneas con costes -->
+    <record id="action_sale_lines_with_costs" model="ir.actions.act_window">
+        <field name="name">Líneas de Venta - Gestión de Costes</field>
+        <field name="res_model">sale.order.line</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{
+            'search_default_order_id': 1,
+        }</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gestiona los costes de materiales y mano de obra por línea de venta
+            </p>
+        </field>
+    </record>
+    
+    <menuitem id="menu_sale_lines_costs" 
+              name="Gestión de Costes por Línea"
+              parent="sale.sale_order_menu"
+              action="action_sale_lines_with_costs"
+              sequence="99"/>
+
+</odoo>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Agregar campo banco a la vista de lista -->
+    <record id="view_payments_tree_bank" model="ir.ui.view">
+        <field name="name">Payments with Bank</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account_due_list.view_payments_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_ref']" position="after">
+                <field name="partner_bank_id" string="Banco Destinatario" readonly="1" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+    
+    <!-- Agregar filtros y agrupación a la vista de búsqueda -->
+    <record id="view_payments_filter_bank" model="ir.ui.view">
+        <field name="name">Payments Filter with Bank</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account_due_list.view_payments_filter"/>
+        <field name="arch" type="xml">
+            <!-- Agregar campo de búsqueda por banco -->
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="partner_bank_id"/>
+            </xpath>
+            
+            <!-- Agregar opción de agrupar por banco -->
+            <xpath expr="//filter[@name='group_by_salesperson']" position="after">
+                <filter string="Banco Destinatario" name="group_by_bank" context="{'group_by':'partner_bank_id'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
